@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navigate, Route, Routes,Link } from 'react-router-dom';
+import './App.css';
+import Login from './pages/login';
+import Signup from './pages/signup';
+import Home from './pages/home';
+import { useState } from 'react';
+import RefreshHandler from './RefreshHandler';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  return (
-    <>
+  const PrivateRoute = ({ element }) => {
+    if (isAuthenticated) {
+      return element; 
+    } else {
+    
+      return (
+        <div>
+          <h2>You need to be logged in to access this page</h2>
+          <p>Please choose one of the options below:</p>
+          <Link to="/login">Login</Link> <br />
+          <Link to="/signup">Signup</Link>
+        </div>
+      );
+    }
+  };
+  const ProtectedPage = () => {
+    return isAuthenticated ? (
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h2>You are logged in and can access this protected route.</h2>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+    ) : (
+      <div>
+        <h2>Only logged-in users have access to this page.</h2>
+        <p>Please log in to view this content.</p>
+        <Link to="/login">Login</Link>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  };
+  return (
+    <div >
+      <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
+      <Routes>
+        <Route path='/' element={<Navigate to="/login" />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/home' element={<PrivateRoute element={<Home />} />} />
+
+        <Route path='/protected' element={<ProtectedPage />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
