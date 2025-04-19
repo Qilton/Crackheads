@@ -34,17 +34,17 @@ const Navbar = ({ scrolled }) => {
             <div className="w-8 h-8 bg-dark rounded-full flex items-center justify-center mr-2">
               <div className="w-3 h-3 bg-primary rounded-full"></div>
             </div>
-            FutureLabs
+            SafeCircle
           </a>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
-          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300">Work</a>
-          <a href="#process" className="text-dark hover:text-primary transition-colors duration-300">Process</a>
+          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300">Community</a>
+          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
+          <a href="#process" className="text-dark hover:text-primary transition-colors duration-300">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300">About</a>
-          <a href="#contact" className="btn btn-primary">Get in touch</a>
+          <a href="#contact" className="btn btn-primary">Create Community</a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -69,11 +69,11 @@ const Navbar = ({ scrolled }) => {
         transition={{ duration: 0.3 }}
       >
         <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Services</a>
-          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Work</a>
-          <a href="#process" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Process</a>
+          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Community</a>
+          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Services</a>
+          <a href="#process" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">About</a>
-          <a href="#contact" className="btn btn-primary w-full">Get in touch</a>
+          <a href="#contact" className="btn btn-primary w-full">Create Community</a>
         </div>
       </motion.div>
     </motion.nav>

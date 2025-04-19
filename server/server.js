@@ -3,6 +3,8 @@ const app=express()
 const bodyParser=require('body-parser')
 const cors= require('cors')
 const AuthRouter=require('./routes/AuthRouter')
+const UserRouter=require('./routes/UserRouter')
+const communityRouter=require('./routes/CommunityRouter')
 require('dotenv').config()
 require('./utils/db')
 const PORT= 8080
@@ -17,7 +19,8 @@ app.use(cors(
   
 ))
 app.use('/auth',AuthRouter)
-app.use('/products',ProductRouter)
+app.use('/user',UserRouter)
+app.use('/community',communityRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)

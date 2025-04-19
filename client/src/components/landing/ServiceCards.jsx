@@ -54,7 +54,7 @@ const ServiceCards = () => {
   }
 
   return (
-    <section className="py-20 bg-gray-200">
+    <section className="py-0 bg-gray-200">
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-12"

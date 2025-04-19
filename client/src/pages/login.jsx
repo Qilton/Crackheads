@@ -14,7 +14,7 @@ const HandleLogin=async(e) => {
     return handleError('email and pass are required')
   }
   try {
-    const url="https://authentication-project-server.vercel.app/auth/login"
+    const url="http://localhost:8080/auth/login"
     const response= await fetch(url,{
         method:"POST",
         headers:{
