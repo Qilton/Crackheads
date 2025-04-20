@@ -23,11 +23,12 @@ const HandleLogin=async(e) => {
         body: JSON.stringify(LoginInfo)
     })
     const result=await response.json()
-    const {success,message,jwtToken,name,error}=result;
+    const {success,message,jwtToken,name,error,id}=result;
     if (success){
       handleSuccess(message)
       localStorage.setItem('token',jwtToken)
       localStorage.setItem('loggedInUser',name)
+      localStorage.setItem('id',id)
       setTimeout(() => {
         navigate("/home")
       }, 1000);

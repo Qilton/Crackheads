@@ -26,6 +26,11 @@ const UserSchema = new Schema({
         type: String,
         required: false,
     },
+    pfp:{
+        type: String,
+        required: false,
+        default:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    },
     address: {
         type: String,
         required: false,

@@ -55,6 +55,7 @@ const login = async (req, res) => {
                 success: true,
                 jwtToken,
                 email,
+                id: user._id,
                 name: user.name
             })
     } catch (err) {

@@ -3,6 +3,7 @@ import './App.css';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Home from './pages/home';
+import Profile from './pages/profile';
 import { useState } from 'react';
 import RefreshHandler from './RefreshHandler';
 
@@ -45,6 +46,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
+        <Route path='/profile' element={<PrivateRoute element={<Profile />} />} />
 
         <Route path='/protected' element={<ProtectedPage />} />
       </Routes>
