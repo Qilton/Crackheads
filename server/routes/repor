@@ -1,0 +1,13 @@
+const express = require('express');
+const router = express.Router();
+const reportController = require('../controllers/ReportController');
+const commentController = require('../controllers/CommentController');
+
+router.post('/', reportController.createReport);
+router.get('/', reportController.getReports);
+router.patch('/:id/upvote', reportController.upvoteReport);
+router.patch('/:id/downvote', reportController.downvoteReport);
+router.patch('/:id/flag', reportController.flagReport);
+router.post('/:reportId/comment', commentController.addComment);
+
+module.exports = router;

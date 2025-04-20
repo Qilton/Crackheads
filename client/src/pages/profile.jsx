@@ -5,10 +5,12 @@ import "react-phone-input-2/lib/style.css";
 import axios from "axios";
 import GoogleMapPicker from "../components/GoogleMapPicker";
 import Navbar from "../components/landing/Navbar";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Profile() {
+  const navigate = useNavigate();
   const [markerPosition, setMarkerPosition] = useState(null);
   const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState(null);
@@ -88,6 +90,17 @@ function Profile() {
     }
   };
   
+  const HandleLogout=async()=>{
+    try{
+      localStorage.removeItem("token")
+      localStorage.removeItem("id")
+      localStorage.removeItem("loggedInUser")
+      navigate("/login")
+    }
+    catch(err){
+      console.error("Error logging out:", error);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -245,20 +258,33 @@ return (
                     </button>
                   </>
                 ) : (
-                  <button
+                  <>
+
+                   <button
+                    type="button"
+                    onClick={() => HandleLogout()}
+                    className="w-full sm:w-auto px-6 py-3 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600"
+                  >
+                    Logout
+                  </button>
+                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
                     className="w-full sm:w-auto px-6 py-3 text-sm font-medium text-white bg-lime-500 rounded-lg hover:bg-lime-600"
                   >
                     Edit Profile
                   </button>
+                  </>
+
                 )}
               </div>
             </form>
           </div>
         </div>
+
       </div>
     </div>
+  
   </div>
 );
 

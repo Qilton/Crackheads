@@ -6,6 +6,8 @@ import Home from './pages/home';
 import Profile from './pages/profile';
 import { useState } from 'react';
 import RefreshHandler from './RefreshHandler';
+import Dashboard from './pages/dashboard';
+import { CommunityProvider } from './provider/CommunityProvider';  
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -39,6 +41,7 @@ function App() {
     );
   };
   return (
+      <CommunityProvider>
     <div >
       <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
@@ -47,10 +50,10 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
         <Route path='/profile' element={<PrivateRoute element={<Profile />} />} />
-
-        <Route path='/protected' element={<ProtectedPage />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </div>
+      </CommunityProvider>
   );
 }
 

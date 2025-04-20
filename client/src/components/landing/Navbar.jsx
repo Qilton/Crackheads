@@ -40,7 +40,7 @@ const Navbar = ({ scrolled }) => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300">Community</a>
+          <a href="#services" onClick={()=>navigate("/dashboard")} className="text-dark hover:text-primary transition-colors duration-300">Community</a>
           <a href="#work" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
           <a href="#process" className="text-dark hover:text-primary transition-colors duration-300">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300">About</a>

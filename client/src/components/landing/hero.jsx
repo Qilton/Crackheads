@@ -2,8 +2,11 @@ import { motion } from 'framer-motion'
 import { FiArrowRight } from 'react-icons/fi'
 import { useState } from 'react'
 import axios from 'axios'
+import JoinCommunityModal from '../JoinCommunityModal'
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const[joinModal,setJoinModal]=useState(false)
+  const [code, setCode] = useState('')
     const [communityName, setCommunityName] = useState('')
     const [description, setDescription] = useState('')
   const openModal = () => setIsModalOpen(true)
@@ -29,6 +32,9 @@ const Hero = () => {
     }
   }
 
+  const handleSubmit=async(e)=>{
+
+  }
   return (
     <section className="pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden relative">
       <div className="container mx-auto px-4">
@@ -61,6 +67,7 @@ const Hero = () => {
                 className="btn btn-secondary"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={()=>setJoinModal(true)}
               >
                 Join a community
               </motion.a>
@@ -120,6 +127,9 @@ const Hero = () => {
           </div>
         </div>
       )}
+    <JoinCommunityModal joinModal={joinModal} setJoinModal={setJoinModal}/> 
+
+
     </section>
   )
 }

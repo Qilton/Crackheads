@@ -51,6 +51,35 @@ const isAdminOfCommunity = (user, communityId) => {
   });
 };
 
+const getCommunities = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).populate("communities.communityId");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const communities = user.communities
+      .filter(community => community.communityId) // Handle cases where a ref might be null
+      .map((community) => {
+        const { _id, name, description, members } = community.communityId;
+        return {
+          communityId: _id,
+          name,
+          description,
+          role: community.role,
+          membersCount: members.length,
+        };
+      });
+
+    return res.status(200).json({ communities });
+
+  } catch (error) {
+    console.error("Error getting communities:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 const generateRandomCode=()=>{
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -132,4 +161,45 @@ const joinCommunity=async(req,res)=>{
   }
 }
 
-module.exports = { createCommunity,createCode,joinCommunity };
+const getMembers = async (req, res) => {
+  try {
+    const { communityId } = req.params;
+
+    if (!communityId) {
+      return res.status(400).json({ message: "Community ID is required" });
+    }
+
+    const community = await Community.findById(communityId);
+    if (!community) {
+      return res.status(404).json({ message: "Community not found" });
+    }
+
+    // Fetch users whose _id is in the community.members array
+    const users = await User.find({
+      _id: { $in: community.members.map((member) => member.userId) },
+    }).select("_id name email pfp"); // optional: select only needed fields
+
+    // Combine user info with role from community.members
+    const membersWithRoles = users.map((user) => {
+      const memberData = community.members.find(
+        (member) => member.userId.toString() === user._id.toString()
+      );
+
+      return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        pfp: user.pfp,
+        role: memberData?.role || "member", // fallback role if not found
+      };
+    });
+
+    return res.status(200).json({ members: membersWithRoles });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
+module.exports = { createCommunity,createCode,joinCommunity,getMembers,getCommunities };

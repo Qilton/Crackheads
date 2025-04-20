@@ -3,10 +3,10 @@ importScripts("https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js
 importScripts("https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js");
 
 firebase.initializeApp({
-  apiKey: "...",
-  projectId: "...",
-  messagingSenderId: "...",
-  appId: "...",
+  apiKey: "AIzaSyBa1D0ozM50hBsLbV4P2IVX-BBM4koqvuw",
+  projectId: "crackheads-69916",
+  messagingSenderId: "501232193715",
+  appId: "1:501232193715:web:b8d3bb35396401dfd0a0c6",
 });
 
 const messaging = firebase.messaging();

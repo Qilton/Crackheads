@@ -46,7 +46,8 @@ const UserSchema = new Schema({
             enum: Object.values(rolesEnum),
             default: rolesEnum.MEMBER
         }
-    }]
+    }],
+    fcmToken: [String]
 });
 
 const UserModel = mongoose.model('users', UserSchema);

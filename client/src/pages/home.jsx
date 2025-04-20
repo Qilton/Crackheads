@@ -6,6 +6,7 @@ import FeatureCards from '../components/landing/FeatureCards'
 import DesignProcess from '../components/landing/DesignProcess'
 import ServiceCards from '../components/landing/ServiceCards'
 import Footer from '../components/landing/footer'
+import NotificationAlert from '../components/NotificationAlert'
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -32,6 +33,7 @@ function App() {
       <DesignProcess />
       <ServiceCards />
       <Footer />
+      <NotificationAlert/>
     </div>
   )
 }
