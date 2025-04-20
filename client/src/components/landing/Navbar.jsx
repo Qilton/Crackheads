@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { FiMenu, FiX } from 'react-icons/fi'
-
+import {useNavigate} from "react-router-dom";
 const Navbar = ({ scrolled }) => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   
-  // Close mobile menu when resizing to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768 && isOpen) {
@@ -44,7 +44,7 @@ const Navbar = ({ scrolled }) => {
           <a href="#work" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
           <a href="#process" className="text-dark hover:text-primary transition-colors duration-300">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300">About</a>
-          <a href="#contact" className="btn btn-primary">Create Community</a>
+          <a href="#contact" onClick={()=>navigate("/profile")} className="btn btn-primary">Profile</a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -73,7 +73,7 @@ const Navbar = ({ scrolled }) => {
           <a href="#work" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Services</a>
           <a href="#process" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">About</a>
-          <a href="#contact" className="btn btn-primary w-full">Create Community</a>
+          <a href="#contact" onClick={()=>navigate("/profile")} className="btn btn-primary w-full">Profile</a>
         </div>
       </motion.div>
     </motion.nav>

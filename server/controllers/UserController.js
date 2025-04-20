@@ -9,6 +9,7 @@ const upload = multer({ storage });
 // Controller
 const updateUser = async (req, res) => {
   try {
+    console.log("req.body",req.body)
     const { address, phone, location } = req.body;
 
     if (!address || !phone || !location) {

@@ -12,6 +12,7 @@ const CommunitySchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
     },
     description: {
         type: String,
@@ -42,6 +43,11 @@ const CommunitySchema = new Schema({
     admins: [{
         type: Schema.Types.ObjectId,
         ref: 'users',
+    }],
+    joinCodes:[{
+        type:[String],
+        required:false,
+        default:[]
     }],
     createdAt: {
         type: Date,

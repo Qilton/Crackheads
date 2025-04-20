@@ -7,25 +7,27 @@ import {
 } from "@react-google-maps/api";
 import axios from "axios";
 
-const containerStyle = {
-  width: "100%",
-  height: "400px",
-};
 
-const defaultCenter = {
-  lat: 28.6139,
-  lng: 77.209,
-};
 
-function GoogleMapPicker({ onLocationSelect }) {
-  const [markerPosition, setMarkerPosition] = useState(null);
+function GoogleMapPicker({ onLocationSelect,markerPosition,setMarkerPosition }) {
 
+  const GOOGLE_MAPS_API_KEY = "AIzaSyDwDptbSsNwAu-w91OKbO9YQswSsKVJk6g";
+
+  const containerStyle = {
+    width: "100%",
+    height: "400px",
+  };
+  
+  const defaultCenter = {
+    lat: 28.6139,
+    lng: 77.209,
+  };
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY", // Replace this
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries: ["places"],
   });
 
-  const handleMapClick = useCallback(async (event) => {
+  const handleMapClick = async (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     setMarkerPosition({ lat, lng });
@@ -36,16 +38,16 @@ function GoogleMapPicker({ onLocationSelect }) {
         {
           params: {
             latlng: `${lat},${lng}`,
-            key: "AIzaSyCGyi_WL_32_GlhP4Dny8RctfHmnRiMFTY", 
+            key: GOOGLE_MAPS_API_KEY,
           },
         }
       );
       const address = response.data.results?.[0]?.formatted_address || "";
-      onLocationSelect({address, lat, lng});
+      onLocationSelect(address);
     } catch (error) {
       console.error("Error in reverse geocoding:", error);
     }
-  }, [onLocationSelect]);
+  };
 
   if (!isLoaded) return <div>Loading map...</div>;
 
@@ -61,4 +63,4 @@ function GoogleMapPicker({ onLocationSelect }) {
   );
 }
 
-export default React.memo(GoogleMapPicker);
+export default GoogleMapPicker;
