@@ -8,33 +8,23 @@ const DesignProcess = () => {
   const processes = [
     {
       id: 1,
-      title: 'Consultation',
-      description: 'We start by understanding your business goals, challenges, and vision. This phase involves in-depth discussions with stakeholders to gather requirements and establish success metrics.'
-    },
-    {
-      id: 2,
-      title: 'Research and Strategy Development',
-      description: 'Our team conducts comprehensive market research, competitor analysis, and user research to develop a strategic roadmap tailored to your specific needs and objectives.'
+      title: 'Instant Alerts',
+      description: 'Get real-time push notifications about local incidents, safety threats, or emergencies.'
     },
     {
       id: 3,
-      title: 'UX/UI Design',
-      description: 'We create intuitive user experiences and visually compelling interfaces that align with your brand identity and meet user expectations, ensuring optimal engagement and conversion.'
+      title: 'Verified Community Network',
+      description: 'Connect only with trusted, verified members of your neighborhood for a safe and secure experience.'
+    },
+    {
+      id: 2,
+      title: 'GPS Alerts',
+      description: 'Get notifications relevant to your specific area — no spam, just what matters near you.'
     },
     {
       id: 4,
-      title: 'Development and Implementation',
-      description: 'Our developers bring designs to life using cutting-edge technologies and best practices, ensuring scalable, secure, and high-performance digital solutions.'
-    },
-    {
-      id: 5,
-      title: 'Testing and Quality Assurance',
-      description: 'Rigorous testing across multiple devices, browsers, and scenarios ensures your digital product works flawlessly and delivers an exceptional user experience.'
-    },
-    {
-      id: 6,
-      title: 'Launch and Monitoring',
-      description: 'We handle the deployment process and provide ongoing support and maintenance to ensure your digital solution continues to perform optimally and evolve with your business needs.'
+      title: 'Community Polls & Feedback',
+      description: 'Participate in safety polls or give input on local issues to strengthen community decision-making.'
     }
   ]
 
@@ -51,10 +41,10 @@ const DesignProcess = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl text-left md:text-heading-sm font-bold mb-4">Our Working Process</h2>
-          <p className="text-gray text-left  max-w-2xl">
-            We follow a proven methodology that ensures successful outcomes for every project, from initial consultation to launch and beyond.
-          </p>
+          <h2 className="text-3xl text-left md:text-heading-sm font-bold mb-4">Get started with SafeCircle</h2>
+          {/* <p className="text-gray text-left  max-w-2xl">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum, animi?
+          </p> */}
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
@@ -72,7 +62,7 @@ const DesignProcess = () => {
               >
                 <div className="flex items-center">
                   <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-dark font-bold mr-4">
-                    {process.id < 10 ? `${process.id}` : process.id}
+                    {process.id < 10 ?` ${process.id}` : process.id}
                   </div>
                   <h3 className="text-xl font-semibold">{process.title}</h3>
                 </div>
@@ -102,4 +92,4 @@ const DesignProcess = () => {
   )
 }
 
-export default DesignProcess
+export default DesignProcess

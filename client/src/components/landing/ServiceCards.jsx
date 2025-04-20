@@ -4,34 +4,34 @@ import { FiArrowRight } from 'react-icons/fi'
 const ServiceCards = () => {
   const services = [
     {
-      icon: '💡',
-      title: 'Digital Strategy',
-      description: 'We create comprehensive digital strategies aligned with your business objectives.'
+      icon: '🆘',
+      title: 'Emergency Help Request',
+      description: 'Send instant help requests to nearby community members with one tap.'
     },
     {
-      icon: '🎯',
-      title: 'Branding & Identity',
-      description: 'Develop a strong brand identity that resonates with your target audience.'
+      icon: '📍',
+      title: 'Real-Time Location & Alerts',
+      description: 'Share your live location for faster, more accurate responses.'
     },
     {
-      icon: '🖌',
-      title: 'UX/UI Design',
-      description: 'Design intuitive interfaces that deliver exceptional user experiences.'
+      icon: '🏘',
+      title: 'Community Creation & Management',
+      description: 'Create or join local groups like neighborhoods, hostels, or offices.'
     },
     {
-      icon: '💻',
-      title: 'Web Development',
-      description: 'Build robust, scalable web applications using cutting-edge technologies.'
+      icon: '💬',
+      title: 'Smart Communication',
+      description: 'Chat instantly during emergencies and keep your community informed.'
     },
     {
-      icon: '📱',
-      title: 'Mobile Development',
-      description: 'Create native and cross-platform mobile apps for iOS and Android.'
+      icon: '🛡',
+      title: 'Verified & Trusted Members',
+      description: 'Connect with verified users and build a trusted support network.'
     },
     {
-      icon: '📊',
-      title: 'Analytics & Insights',
-      description: 'Gather and analyze data to optimize performance and drive growth.'
+      icon: '🔔',
+      title: 'Instant Notifications',
+      description: 'Get real-time alerts via app notifications or SMS.'
     }
   ]
 
@@ -54,7 +54,7 @@ const ServiceCards = () => {
   }
 
   return (
-    <section className="py-0 bg-gray-200">
+    <section className="py-20 bg-gray-200" id="service">
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-12"
@@ -64,7 +64,7 @@ const ServiceCards = () => {
         >
           <h2 className="text-3xl  md:text-heading-sm font-bold mb-4">Our Services</h2>
           <p className="text-gray max-w-2xl mx-auto">
-            Comprehensive digital solutions to help your business thrive in the digital landscape.
+          Comprehensive digital solutions to help communities stay connected, safe, and supported during emergencies.
           </p>
         </motion.div>
 
@@ -77,7 +77,7 @@ const ServiceCards = () => {
           {services.map((service, index) => (
             <motion.div 
               key={index}
-              className="bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300"
+              className="bg-white text-left rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300"
               variants={itemVariants}
               whileHover={{ y: -5 }}
             >
