@@ -92,11 +92,14 @@ const fcmToken= async (req, res) => {
   };
   
   
-
+  function extractLatLngFromGoogleUrl(url) {
+    const match = url.match(/q=([-.\d]+),([-.\d]+)/);
+    return match ? { latitude: match[1], longitude: match[2] } : {};
+  }
   
 const alert = async (req, res) => {
   const { communityId, message, locationUrl, name } = req.body;
-
+    console.log(locationUrl)
   const objectId = new mongoose.Types.ObjectId(communityId);
 
   const users = await User.find({ 'communities.communityId': objectId });
@@ -113,10 +116,10 @@ const alert = async (req, res) => {
     name,
     locationUrl,
   });
-
+  const { latitude, longitude } = extractLatLngFromGoogleUrl(locationUrl)
   const alertId = alertDoc._id.toString();
-  const alertUrl = `https://your-frontend.com/notification/${alertId}`;
-
+  const alertUrl = `http://localhost:5173/alert?name=${encodeURIComponent(name)}&alert=${encodeURIComponent(message)}&lat=${latitude}&lng=${longitude}`;
+  console.log(alertUrl)
   await sendRepeatedNotification(tokens, message, alertUrl);
 
   res.status(201).json({ alertId }); // return the alert ID to frontend
