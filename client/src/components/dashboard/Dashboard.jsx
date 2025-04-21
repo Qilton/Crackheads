@@ -81,7 +81,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const res = await fetch("http://localhost:8080/alerts", {
+        const res = await fetch("https://localhost:8080/alerts", {
           headers: {
             Authorization: `${localStorage.getItem("token")}`, // if needed
           },
@@ -130,7 +130,7 @@ const Dashboard = () => {
       console.error("Error generating code:", error);
     }
   }
-
+  console.log(alertHistory)
   const alerts = [
     { title: 'Suspicious Activity', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z', color: 'bg-yellow-500' },
     { title: 'Stranger at Door', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', color: 'bg-orange-500' },
@@ -147,10 +147,10 @@ const Dashboard = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">History</h2>
           <div className="h-64 overflow-y-auto bg-gray-50 rounded-lg p-4 space-y-3">
-            {alerts.length === 0 ? (
+            {alertHistory.length === 0 ? (
               <p className="text-gray-500">No alerts found.</p>
             ) : (
-              alertHistory.map((alert) => (
+              alertHistory?.map((alert) => (
                 <div key={alert._id} className="bg-white border border-gray-200 rounded-md p-3 shadow-sm">
                   <div className="flex justify-between items-center">
                     <p className="font-medium text-gray-800">{alert.name || "Unknown"}</p>

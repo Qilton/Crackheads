@@ -3,7 +3,7 @@ const alert=require("../models/Alert");
 
 const getAlerts = async (req, res) => { 
     try {
-        const alerts = await alert.find({}).populate('userId', 'name pfp');
+        const alerts = await alert.find({});
         res.status(200).json(alerts);
     } catch (error) {
         console.error(error);
