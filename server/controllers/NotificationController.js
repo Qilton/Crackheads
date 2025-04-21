@@ -33,7 +33,7 @@ const fcmToken= async (req, res) => {
       data: {
         title: "Help Alert!",
         body: message,
-       
+        alertUrl: alertUrl,
       }
     };
   
