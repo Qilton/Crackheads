@@ -6,7 +6,7 @@ const community = () => {
         const userId=localStorage.getItem("id")
         const token=localStorage.getItem("token")
         const communityId=localStorage.getItem("communityId")
-        const response=await axios.post("http://localhost:8080/community/code",{
+        const response=await axios.post("https://crackheads-three.vercel.app/community/code",{
            userId, communityId
         },{
             headers:{

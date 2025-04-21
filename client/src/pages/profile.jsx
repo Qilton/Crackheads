@@ -23,7 +23,7 @@ function Profile() {
         const userId = localStorage.getItem("id");
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`http://localhost:8080/user/${userId}`, {
+        const response = await axios.get(`https://crackheads-three.vercel.app/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -121,7 +121,7 @@ function Profile() {
       }
       if (photoFile) data.append("photo", photoFile); // only if a new one is selected
 
-      await axios.post(`http://localhost:8080/user/update/${userId}`, data, {
+      await axios.post(`https://crackheads-three.vercel.app/user/update/${userId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

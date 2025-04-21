@@ -14,7 +14,7 @@ const HandleSignup=async(e) => {
     return handleError('name,email and pass are required')
   }
   try {
-    const url="http://localhost:8080/auth/signup"
+    const url="https://crackheads-three.vercel.app/auth/signup"
     const response= await fetch(url,{
         method:"POST",
         headers:{

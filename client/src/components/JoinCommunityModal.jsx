@@ -10,7 +10,7 @@ const JoinCommunityModal = ({ joinModal, setJoinModal }) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:8080/community/join', {
+      const response = await axios.post('https://crackheads-three.vercel.app/community/join', {
         communityName,
         code:roomCode,
       }, {

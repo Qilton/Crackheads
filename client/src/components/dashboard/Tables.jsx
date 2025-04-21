@@ -10,7 +10,7 @@ const Tables = () => {
   useEffect(() => {
     const getMembers = async () => {
       try {
-        const result = await axios.get(`http://localhost:8080/community/members/${communityId}`, {
+        const result = await axios.get(`https://crackheads-three.vercel.app/community/members/${communityId}`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -39,7 +39,7 @@ const Tables = () => {
   const handleChangeRole = async (memberId, newRole) => {
     try {
       const result = await axios.post(
-        `http://localhost:8080/admin/changerole`,
+        `https://crackheads-three.vercel.app/admin/changerole`,
         {
           userId: memberId,
           communityId: selectedCommunity?.communityId,
@@ -76,7 +76,7 @@ const Tables = () => {
     }
   
     try {
-      const result = await axios.post(`http://localhost:8080/admin/remove`, { userId: memberId, communityId: selectedCommunity?.communityId }, {
+      const result = await axios.post(`https://crackheads-three.vercel.app/admin/remove`, { userId: memberId, communityId: selectedCommunity?.communityId }, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },

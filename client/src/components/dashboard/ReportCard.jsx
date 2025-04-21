@@ -22,7 +22,7 @@ function ReportCard({ report }) {
     
         const fetchComments = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/comment/${report._id}/comments`, {
+                const res = await axios.get(`https://crackheads-three.vercel.app/comment/${report._id}/comments`, {
                     headers: {
                         Authorization: `${localStorage.getItem('token')}`,
                     },
@@ -63,7 +63,7 @@ function ReportCard({ report }) {
 
         try {
             const res = await axios.post(
-                `http://localhost:8080/reports/${report._id}/${route}`,
+                `https://crackheads-three.vercel.app/reports/${report._id}/${route}`,
                 { userId: currentUserId },
                 {
                     headers: {
@@ -89,7 +89,7 @@ function ReportCard({ report }) {
             const endpoint = isFlagged ? 'unflag' : 'flag';
     
             const res = await axios.post(
-                `http://localhost:8080/reports/${report._id}/${endpoint}`,
+                `https://crackheads-three.vercel.app/reports/${report._id}/${endpoint}`,
                 { userId: currentUserId },
                 {
                     headers: {
@@ -113,7 +113,7 @@ function ReportCard({ report }) {
 
         try {
             const res = await axios.post(
-                `http://localhost:8080/comment/${report._id}/comments`,
+                `https://crackheads-three.vercel.app/comment/${report._id}/comments`,
                 { text: commentText },
                 {
                     headers: {
@@ -135,7 +135,7 @@ function ReportCard({ report }) {
 
         try {
             const res = await axios.post(
-                `http://localhost:8080/comment/${commentId}/replies`,
+                `https://crackheads-three.vercel.app/comment/${commentId}/replies`,
                 { text: replyText,parentComment: commentId },
                 {
                     headers: {

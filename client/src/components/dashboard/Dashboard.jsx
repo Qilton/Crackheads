@@ -35,7 +35,7 @@ const Dashboard = () => {
       const name = localStorage.getItem("loggedInUser");
   
       try {
-        const res = await axios.post("http://localhost:8080/notification/alert", {
+        const res = await axios.post("https://crackheads-three.vercel.app/notification/alert", {
           communityId: selectedCommunity.communityId,
           message: alertTitle,
           locationUrl,
@@ -63,7 +63,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getCommunity = async () => {
       try {
-        const result = await axios.get("http://localhost:8080/community/get", {
+        const result = await axios.get("https://crackheads-three.vercel.app/community/get", {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -84,7 +84,7 @@ const Dashboard = () => {
 
   const HandleCode = async (communityId) => {
     try {
-      const result = await axios.post(`http://localhost:8080/community/code`, { communityId }, {
+      const result = await axios.post(`https://crackheads-three.vercel.app/community/code`, { communityId }, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },

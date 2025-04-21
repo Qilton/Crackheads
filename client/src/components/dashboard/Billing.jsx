@@ -15,7 +15,7 @@ function App() {
       if (!communityId) return;
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:8080/reports/${communityId}`, {
+        const response = await axios.get(`https://crackheads-three.vercel.app/reports/${communityId}`, {
           headers: {
             Authorization: `${token}`,
           },
