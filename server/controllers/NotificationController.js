@@ -118,7 +118,7 @@ const alert = async (req, res) => {
   });
   const { latitude, longitude } = extractLatLngFromGoogleUrl(locationUrl)
   const alertId = alertDoc._id.toString();
-  const alertUrl = `http://localhost:5173/alert?name=${encodeURIComponent(name)}&alert=${encodeURIComponent(message)}&lat=${latitude}&lng=${longitude}`;
+  const alertUrl = `https://crackheads-31cu.vercel.app/alert?name=${encodeURIComponent(name)}&alert=${encodeURIComponent(message)}&lat=${latitude}&lng=${longitude}`;
   console.log(alertUrl)
   await sendRepeatedNotification(tokens, message, alertUrl);
 
