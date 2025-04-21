@@ -25,7 +25,6 @@ const Hero = () => {
             Authorization:token,
         },
     })
-      console.log(response.data)
       closeModal()
     } catch (error) {
       console.error('Error creating community:', error)

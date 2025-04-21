@@ -35,7 +35,6 @@ const HandleSignup=async(e) => {
     }else if(!success){
       handleError(message)
     }
-    console.log(result)
   } catch (err) {
     handleError(err)
   }
@@ -46,7 +45,6 @@ const HandleSignup=async(e) => {
 
     const HandleChange=(e) => {
       const {name,value}=e.target
-      console.log(name,value)
       const copySignUpInfo={...SignUpInfo}
       copySignUpInfo[name]=value;
       setSignUpInfo(copySignUpInfo)

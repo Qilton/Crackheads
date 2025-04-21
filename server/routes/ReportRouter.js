@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const {createReport,getReports,upvoteReport,downvoteReport,flagReport,unflagReport} = require('../controllers/ReportController');
+const ensureAuthenticated = require('../middleware/Auth');
+router.post('/create', ensureAuthenticated,createReport);
+router.get('/:communityId',ensureAuthenticated, getReports);
+router.post('/:id/upvote',ensureAuthenticated, upvoteReport);
+router.post('/:id/downvote',ensureAuthenticated, downvoteReport);
+router.post('/:id/flag',ensureAuthenticated, flagReport);
+router.post('/:id/unflag',ensureAuthenticated, unflagReport);
+module.exports = router;

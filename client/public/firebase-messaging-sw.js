@@ -19,7 +19,7 @@ messaging.onBackgroundMessage(function (payload) {
     body: payload.notification.body,
     icon: '/logo.png',
     data: {
-      url: payload.notification.click_action || "/", // redirect when clicked
+      url: payload.notification.click_action || "/",
       audio: payload.data.audio
     }
   };

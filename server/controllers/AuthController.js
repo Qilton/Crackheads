@@ -26,29 +26,24 @@ const signup= async (req,res) => {
 
 const login = async (req, res) => {
     try {
-        console.log("Login request body:", req.body);
         const { email, password } = req.body;
         const user = await UserModel.findOne({ email });
         const errorMsg = 'Auth failed email or password is wrong';
         if (!user) {
-            console.log("User not found");
             return res.status(403)
                 .json({ message: errorMsg, success: false });
         }
         const isPassEqual = await bcrypt.compare(password, user.password);
         if (!isPassEqual) {
-            console.log("Password not equal");
             return res.status(403)
                 .json({ message: errorMsg, success: false });
         }
         
-    console.log("Password matched, generating token...");
         const jwtToken = jwt.sign(
             { email: user.email, _id: user._id },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
         )
-        console.log("Token generated successfully");
        return res.status(200)
             .json({
                 message: "Login Success",

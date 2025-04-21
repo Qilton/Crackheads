@@ -15,12 +15,11 @@ const NotificationAlert = () => {
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
         const token = await getToken(messaging, {
-          vapidKey: import.meta.env.VITE_VAPID_KEY,
+          vapidKey: "BLutXQ7rOfztcm0DQg1IFv1tVaUgSGj9KfQokJlPY1CDgPWAeld-WW-NDnOTefp5MKlsjmdvqrScIP6zR4DkALI",
         });
 
-        console.log("FCM Token:", token);
 
-        await fetch("http://localhost:8080/api/save-fcm-token", {
+        await fetch("http://localhost:8080/notification/token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

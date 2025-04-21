@@ -113,7 +113,6 @@ function Profile() {
       data.append("email", formData.email);
       data.append("address", formData.address);
       data.append("phone", formData.phone);
-      console.log(markerPosition);
       if (markerPosition) {
         data.append("location", JSON.stringify(markerPosition));
       }

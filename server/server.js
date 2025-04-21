@@ -4,11 +4,11 @@ const bodyParser=require('body-parser')
 const cors= require('cors')
 const AuthRouter=require('./routes/AuthRouter')
 const NotificationRouter=require('./routes/NotificationRouter')
-const User=require('./models/user')
 const UserRouter=require('./routes/UserRouter')
 const communityRouter=require('./routes/CommunityRouter')
-const reportRouter=requre("./routes/ReportRouter")
+const reportRouter=require("./routes/ReportRouter")
 const commentRouter=require('./routes/commentRoutes')
+const AdminRouter=require('./routes/AdminRouter')
 require('dotenv').config()
 require('./utils/db')
 const PORT= 8080
@@ -18,15 +18,19 @@ app.get('/',(req,res) => {
 })
 
 app.use(bodyParser.json())
-app.use(cors(
-  
-))
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}))
 app.use('/auth',AuthRouter)
 app.use('/user',UserRouter)
 app.use('/community',communityRouter)
 app.use('/notification',NotificationRouter)
 app.use('/reports', reportRouter);
-app.use('/comments', commentRouter);
+app.use('/comment', commentRouter);
+app.use('/admin', AdminRouter);
 
 
 

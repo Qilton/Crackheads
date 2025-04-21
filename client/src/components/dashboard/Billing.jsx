@@ -1,49 +1,57 @@
-import React, { useState } from 'react';
-import { AlertTriangle } from 'lucide-react';
-import { mockReports } from './mockData';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ReportCard from './ReportCard';
+import ReportFormModal from './ReportFormModal';
+import { useCommunity } from '../../provider/CommunityProvider';
 
 function App() {
-  const [sortBy, setSortBy] = useState('newest');
-  const [reports, setReports] = useState(mockReports);
+  const { selectedCommunity } = useCommunity();
+  const communityId = selectedCommunity.communityId;
+  const [reports, setReports] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const sortedReports = [...reports].sort((a, b) => {
-    switch (sortBy) {
-      case 'top':
-        return (b.votes.upvotes - b.votes.downvotes) - (a.votes.upvotes - a.votes.downvotes);
-      case 'controversial':
-        return b.votes.downvotes - a.votes.downvotes;
-      case 'newest':
-      default:
-        return b.createdAt - a.createdAt;
-    }
-  });
+  useEffect(() => {
+    const fetchReports = async () => {
+      if (!communityId) return;
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:8080/reports/${communityId}`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+        if (response.status === 200) {
+          setReports(response.data.reports);
+        } else {
+          alert(response.data.message);
+        }
+      } catch (err) {
+        console.error('Error fetching reports:', err);
+      }
+    };
+
+    fetchReports();
+  }, [communityId]);
+
+  const addReport = (newReport) => {
+    setReports((prevReports) => [newReport, ...prevReports]); // Add new report to the front of the array
+  };
 
   return (
     <div className="min-h-screen bg-neutral-100">
-      <div className="max-w-3xl mx-auto ">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="text-primary-500" size={24} />
-            <h1 className="text-2xl font-bold text-neutral-900">Report Center</h1>
-          </div>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-neutral-200 bg-white text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-500"
-          >
-            <option value="newest">Newest</option>
-            <option value="top">Top</option>
-            <option value="controversial">Controversial</option>
-          </select>
-        </div>
+      <div className="max-w-3xl mx-auto">
+        <button onClick={() => setIsOpen(true)} className="bg-teal-600 text-white py-2 px-4 rounded">
+          Add Report
+        </button>
 
-        <div className="space-y-4">
-          {sortedReports.map(report => (
+        <div className="space-y-4 mt-8">
+          {reports.map((report) => (
             <ReportCard key={report.id} report={report} />
           ))}
         </div>
       </div>
+
+      <ReportFormModal isOpen={isOpen} setIsOpen={setIsOpen} addReport={addReport} />
     </div>
   );
 }

@@ -38,7 +38,6 @@ const HandleLogin=async(e) => {
     }else if(!success){
       handleError(message)
     }
-    console.log(result)
   } catch (err) {
     handleError(err)
   }
@@ -49,7 +48,6 @@ const HandleLogin=async(e) => {
 
     const HandleChange=(e) => {
       const {name,value}=e.target
-      console.log(name,value)
       const copyLoginInfo={...LoginInfo}
       copyLoginInfo[name]=value;
       setLoginInfo(copyLoginInfo)

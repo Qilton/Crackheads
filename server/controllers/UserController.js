@@ -9,7 +9,6 @@ const upload = multer({ storage });
 // Controller
 const updateUser = async (req, res) => {
   try {
-    console.log("req.body",req.body)
     const { address, phone, location } = req.body;
 
     if (!address || !phone || !location) {
@@ -70,7 +69,6 @@ const updateUser = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log("id", id);
     const user = await UserModel.findById(id);
     if (!user) {
       return res.status(404).json({

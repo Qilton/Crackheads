@@ -43,7 +43,6 @@ const createCommunity = async (req, res) => {
 
 const isAdminOfCommunity = (user, communityId) => {
   return user.communities.some((comm) => {
-    console.log(comm.communityId)
     return (
       comm.communityId.toString() === communityId.toString() &&
       comm.role === 'admin'
@@ -125,7 +124,6 @@ const joinCommunity=async(req,res)=>{
           return res.status(400).json({message:"Community name and code are required"})
       }
       const community=await Community.findOne({name:communityName})
-      console.log(community)
       if(!community){
           return res.status(404).json({message:"Community not found"})
       }

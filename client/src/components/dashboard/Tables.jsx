@@ -1,54 +1,100 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCommunity } from '../../provider/CommunityProvider';
-import axios from 'axios';  
+import axios from 'axios';
+
 const Tables = () => {
   const { selectedCommunity } = useCommunity();
   const [members, setMembers] = useState([]);
-  console.log("selectedCommunity",selectedCommunity);
   const communityId = selectedCommunity ? selectedCommunity.communityId : null;
 
- 
   useEffect(() => {
     const getMembers = async () => {
       try {
-        const result = await axios.get(`http://localhost:8080/community/members/${communityId}`,  {
+        const result = await axios.get(`http://localhost:8080/community/members/${communityId}`, {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
         });
-        console.log(result);
-        setMembers(result.data.members); 
+        setMembers(result.data.members);
       } catch (error) {
         console.error("Error fetching members:", error);
       }
     };
 
-    getMembers(); 
-  }, []);
+    getMembers();
+  }, [communityId]);
+  const rolesEnum = {
+    ADMIN: 'admin',
+    MODERATOR: 'moderator',
+    MEMBER: 'member',
+    MAID: "maid",
+    PLUMBER: "plumber",
+    ELECTRICIAN: "electrician",
+    SECURITY: "security",
+    MAINTENANCE: "maintenance",
+    GARDENER: 'gardener',
+    CLEANER: 'cleaner',
+  };
 
-console.log("members",members);
-  const authors = [
-    { name: 'John Michael', email: 'john@creative-tim.com', role: 'Manager', status: 'Online', date: '23/04/18' },
-    { name: 'Alexa Liras', email: 'alexa@creative-tim.com', role: 'Developer', status: 'Offline', date: '11/01/19' },
-    { name: 'Laurent Perrier', email: 'laurent@creative-tim.com', role: 'Designer', status: 'Online', date: '19/09/17' },
-    { name: 'Michael Levi', email: 'michael@creative-tim.com', role: 'Developer', status: 'Online', date: '24/12/08' },
-    { name: 'Richard Gran', email: 'richard@creative-tim.com', role: 'Manager', status: 'Offline', date: '04/10/21' },
-    { name: 'Miriam Eric', email: 'miriam@creative-tim.com', role: 'Developer', status: 'Online', date: '14/09/20' },
-  ];
+  const handleChangeRole = async (memberId, newRole) => {
+    try {
+      const result = await axios.post(
+        `http://localhost:8080/admin/changerole`,
+        {
+          userId: memberId,
+          communityId: selectedCommunity?.communityId,
+          newRole,
+        },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-  const projects = [
-    { name: 'Chakra Soft UI Version', budget: '$14,000', status: 'Working', completion: 60 },
-    { name: 'Add Progress Track', budget: '$3,000', status: 'Canceled', completion: 10 },
-    { name: 'Fix Platform Errors', budget: 'Not set', status: 'Done', completion: 100 },
-    { name: 'Launch our Mobile App', budget: '$32,000', status: 'Done', completion: 100 },
-    { name: 'Add the New Pricing Page', budget: '$400', status: 'Working', completion: 25 },
-  ];
+
+      setMembers((prev) =>
+        prev.map((m) =>
+          m._id === memberId ? { ...m, role: newRole } : m
+        )
+      );
+
+      alert("Role updated successfully!");
+    } catch (error) {
+      console.error("Error changing role:", error.response?.data || error);
+      alert("Failed to change role.");
+    }
+  };
+
+  const HandleRemove = async (memberId) => {
+    const loggedInUserId = localStorage.getItem("id");
+  
+    // Prevent removal if the user is trying to remove themselves
+    if (memberId === loggedInUserId) {
+      alert("You cannot remove yourself!");
+      return;
+    }
+  
+    try {
+      const result = await axios.post(`http://localhost:8080/admin/remove`, { userId: memberId, communityId: selectedCommunity?.communityId }, {
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      });
+      setMembers((prevMembers) => prevMembers.filter(member => member._id !== memberId));
+      alert("Member removed successfully!");
+    } catch (error) {
+      console.error("Error removing member:", error);
+      alert("Failed to remove member.");
+    }
+  };
+  
+
 
   return (
     <div className="space-y-6">
       {/* Authors Table */}
       <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-        
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -59,10 +105,13 @@ console.log("members",members);
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Function
                 </th>
-                
-                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Action
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Phone No.
                 </th>
+                {selectedCommunity?.role === 'admin' &&
+                  <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Action
+                  </th>}
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -72,7 +121,7 @@ console.log("members",members);
                     <div className="flex items-center">
                       <div className="h-10 w-10 rounded-full bg-gray-200 flex-shrink-0 mr-3">
                         <div className="h-full w-full rounded-full overflow-hidden">
-                          <img 
+                          <img
                             src={member.pfp}
                             alt={member.name}
                             className="h-full w-full object-cover"
@@ -90,12 +139,35 @@ console.log("members",members);
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{member.role}</div>
+                    {selectedCommunity?.role === 'admin' ? (
+                      member._id === `${localStorage.getItem("id")}` ? (
+                        <div className="text-sm text-gray-900">{member.role} (You)</div>
+                      ) : (
+                        <select
+                          value={member.role}
+                          onChange={(e) => handleChangeRole(member._id, e.target.value)}
+                          className="text-sm text-gray-900 border border-gray-300 rounded px-2 py-1"
+                        >
+                          {Object.values(rolesEnum).map((role) => (
+                            <option key={role} value={role}>
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                      )
+                    ) : (
+                      <div className="text-sm text-gray-900">{member.role}</div>
+                    )}
+
+
                   </td>
-                 
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button className="text-red-600 hover:text-red-900">Remove</button>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{member.phone}</div>
                   </td>
+                  {selectedCommunity?.role === 'admin' &&
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button onClick={() => HandleRemove(member._id)} className="text-red-600 hover:text-red-900">Remove</button>
+                    </td>}
                 </tr>
               ))}
             </tbody>

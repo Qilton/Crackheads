@@ -6,8 +6,6 @@ const JoinCommunityModal = ({ joinModal, setJoinModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Community Name:', communityName);
-    console.log('Room Code:', roomCode);
   
     try {
       const response = await axios.post('http://localhost:8080/community/join', {
@@ -19,7 +17,6 @@ const JoinCommunityModal = ({ joinModal, setJoinModal }) => {
         },
       });
   
-      console.log(response.data);
       alert('Joined successfully!');
       setJoinModal(false);
   

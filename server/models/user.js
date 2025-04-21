@@ -5,7 +5,14 @@ const Schema = mongoose.Schema;
 const rolesEnum = {
     ADMIN: 'admin',
     MODERATOR: 'moderator',
-    MEMBER: 'member'
+    MEMBER: 'member',
+    MAID:"maid",
+    PLUMBER:"plumber",
+    ELECTRICIAN:"electrician",
+    SECURITY:"security",
+    MAINTENANCE:"maintenance",
+    GARDENER: 'gardener',
+    CLEANER: 'cleaner',
 };
 
 const UserSchema = new Schema({

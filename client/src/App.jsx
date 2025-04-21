@@ -8,7 +8,7 @@ import { useState } from 'react';
 import RefreshHandler from './RefreshHandler';
 import Dashboard from './pages/dashboard';
 import { CommunityProvider } from './provider/CommunityProvider';  
-
+import { ToastContainer } from 'react-toastify';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -41,7 +41,8 @@ function App() {
     );
   };
   return (
-      <CommunityProvider>
+    <CommunityProvider>
+        <ToastContainer/>
     <div >
       <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
       <Routes>
