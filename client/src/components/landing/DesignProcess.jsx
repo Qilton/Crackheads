@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiPlus, FiMinus } from 'react-icons/fi'
 
 const DesignProcess = () => {
-  const [openId, setOpenId] = useState(1)
+  const [openId, setOpenId] = useState(0)
   
   const processes = [
     {
