@@ -81,7 +81,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const res = await fetch("https://localhost:8080/alerts", {
+        const res = await fetch("https://crackheads-three.vercel.app/alerts", {
           headers: {
             Authorization: `${localStorage.getItem("token")}`, // if needed
           },
