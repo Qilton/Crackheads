@@ -9,6 +9,7 @@ const communityRouter=require('./routes/CommunityRouter')
 const reportRouter=require("./routes/ReportRouter")
 const commentRouter=require('./routes/commentRoutes')
 const AdminRouter=require('./routes/AdminRouter')
+const AlertRouter=require('./routes/AlertRouter')
 require('dotenv').config()
 require('./utils/db')
 const PORT= 8080
@@ -31,7 +32,7 @@ app.use('/notification',NotificationRouter)
 app.use('/reports', reportRouter);
 app.use('/comment', commentRouter);
 app.use('/admin', AdminRouter);
-
+app.use('/alerts',AlertRouter)
 
 
 

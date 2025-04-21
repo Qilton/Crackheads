@@ -50,7 +50,7 @@ export const Layout = ({ children, activePage, setActivePage }) => {
                 </svg>
               </button>
               <div className="relative">
-                <button className="flex items-center focus:outline-none">
+                <button className="flex items-center focus:outline-none" onClick={() => navigate('/profile')}>
                   <div className="h-8 w-8 rounded-full bg-teal-500 flex items-center justify-center text-white">
                     <span className="text-sm font-medium">EJ</span>
                   </div>

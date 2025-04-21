@@ -23,17 +23,36 @@ const AlertButton = ({ title, icon, color, onClick }) => (
 const Dashboard = () => {
   const { selectedCommunity, setSelectedCommunity } = useCommunity();
   const [communities, setCommunities] = useState([]);
+  const [alertHistory, setAlertHistory] = useState([]);
 
+
+  useEffect(() => {
+    const fetchAlerts = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/alerts/", {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`, // if needed
+          },
+        });
+        const data = await res.json();
+        setAlertHistory(data);
+      } catch (err) {
+        console.error("Failed to fetch alerts:", err);
+      }
+    };
+
+    fetchAlerts();
+  }, []);
   const sendAlert = (alertTitle) => {
     if (!selectedCommunity) {
       return alert("Please select a community.");
     }
-  
+
     navigator.geolocation.getCurrentPosition(async (position) => {
       const { latitude, longitude } = position.coords;
       const locationUrl = `https://maps.google.com/?q=${latitude},${longitude}`;
       const name = localStorage.getItem("loggedInUser");
-  
+
       try {
         const res = await axios.post("https://crackheads-three.vercel.app/notification/alert", {
           communityId: selectedCommunity.communityId,
@@ -45,10 +64,10 @@ const Dashboard = () => {
             Authorization: `${localStorage.getItem("token")}`,
           },
         });
-  
+
         alert("Emergency notification sent!");
         console.log("Server response:", res.data);
-  
+
       } catch (error) {
         console.error("Error sending alert:", error);
         alert("Failed to send alert.");
@@ -58,8 +77,25 @@ const Dashboard = () => {
       alert("Please enable location access.");
     });
   };
-  
-  
+
+  useEffect(() => {
+    const fetchAlerts = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/alerts", {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`, // if needed
+          },
+        });
+        const data = await res.json();
+        setAlertHistory(data);
+      } catch (err) {
+        console.error("Failed to fetch alerts:", err);
+      }
+    };
+
+    fetchAlerts();
+  }, []);
+
   useEffect(() => {
     const getCommunity = async () => {
       try {
@@ -110,9 +146,32 @@ const Dashboard = () => {
         {/* Chart section */}
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">History</h2>
-          <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-            <p className="text-gray-500">History visualization would go here</p>
+          <div className="h-64 overflow-y-auto bg-gray-50 rounded-lg p-4 space-y-3">
+            {alerts.length === 0 ? (
+              <p className="text-gray-500">No alerts found.</p>
+            ) : (
+              alertHistory.map((alert) => (
+                <div key={alert._id} className="bg-white border border-gray-200 rounded-md p-3 shadow-sm">
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-gray-800">{alert.name || "Unknown"}</p>
+                    <p className="text-xs text-gray-400">{new Date(alert.createdAt).toLocaleString()}</p>
+                  </div>
+                  <p className="text-gray-600 text-sm mt-1">{alert.message}</p>
+                  {alert.locationUrl && (
+                    <a
+                      href={alert.locationUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 text-sm mt-1 inline-block hover:underline"
+                    >
+                      View Location
+                    </a>
+                  )}
+                </div>
+              ))
+            )}
           </div>
+
         </div>
 
         {/* Projects section */}
