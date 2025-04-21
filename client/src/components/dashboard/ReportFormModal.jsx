@@ -23,7 +23,7 @@ const ReportFormModal = ({ isOpen, setIsOpen, addReport }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        'http://localhost:8080/reports/create',
+        'https://crackheads-three.vercel.app/reports/create',
         {
           ...formData,
           communityId: selectedCommunity.communityId,

@@ -20,7 +20,7 @@ const Hero = () => {
       return
     }
     try {
-      const response = await axios.post('http://localhost:8080/community/create', { communityName, description },{
+      const response = await axios.post('https://crackheads-three.vercel.app/community/create', { communityName, description },{
         headers: {
             Authorization:token,
         },
