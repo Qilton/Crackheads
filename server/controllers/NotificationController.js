@@ -28,7 +28,6 @@ const fcmToken= async (req, res) => {
       notification: {
         title: "Help Alert!",
         body: message,
-        click_action: alertUrl,   
       },
       data: {
         title: "Help Alert!",
