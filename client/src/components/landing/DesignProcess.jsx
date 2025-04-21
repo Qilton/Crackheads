@@ -12,12 +12,12 @@ const DesignProcess = () => {
       description: 'Get real-time push notifications about local incidents, safety threats, or emergencies.'
     },
     {
-      id: 3,
+      id: 2,
       title: 'Verified Community Network',
       description: 'Connect only with trusted, verified members of your neighborhood for a safe and secure experience.'
     },
     {
-      id: 2,
+      id: 3,
       title: 'GPS Alerts',
       description: 'Get notifications relevant to your specific area — no spam, just what matters near you.'
     },

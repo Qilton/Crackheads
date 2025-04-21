@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 const JoinCommunityModal = ({ joinModal, setJoinModal }) => {
   const [communityName, setCommunityName] = useState('');
   const [roomCode, setRoomCode] = useState('');
+  const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ const JoinCommunityModal = ({ joinModal, setJoinModal }) => {
   
       alert('Joined successfully!');
       setJoinModal(false);
-  
+      navigate('/dashboard')
     } catch (error) {
       console.error('Error joining community:', error);
       alert('Failed to join community. Please check the room code.');

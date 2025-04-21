@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { FiArrowRight } from 'react-icons/fi'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import JoinCommunityModal from '../JoinCommunityModal'
 const Hero = () => {
+  const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const[joinModal,setJoinModal]=useState(false)
   const [code, setCode] = useState('')
@@ -26,6 +28,7 @@ const Hero = () => {
         },
     })
       closeModal()
+      navigate('/dashboard')
     } catch (error) {
       console.error('Error creating community:', error)
     }
@@ -83,7 +86,7 @@ const Hero = () => {
               <div className="absolute -top-10 -left-10 w-20 h-20 bg-primary rounded-full opacity-20"></div>
               <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-dark rounded-full"></div>
               <div className="relative z-10 bg-light-gray rounded-2xl overflow-hidden shadow-lg">
-                <video className='w-full' disablePictureInPicture src="src/assets/safe video.mp4"  loop muted autoPlay></video>
+                <video className='w-full' disablePictureInPicture src="video.mp4"  loop muted autoPlay></video>
               </div>
             </div>
           </motion.div>

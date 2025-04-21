@@ -40,8 +40,8 @@ const Navbar = ({ scrolled }) => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#services" onClick={()=>navigate("/dashboard")} className="text-dark hover:text-primary transition-colors duration-300">Community</a>
-          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
+          <a  onClick={()=>navigate("/dashboard")} className="text-dark hover:text-primary transition-colors duration-300">Community</a>
+          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300">Services</a>
           <a href="#process" className="text-dark hover:text-primary transition-colors duration-300">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300">About</a>
           <a href="#contact" onClick={()=>navigate("/profile")} className="btn btn-primary">Profile</a>
@@ -69,8 +69,8 @@ const Navbar = ({ scrolled }) => {
         transition={{ duration: 0.3 }}
       >
         <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Community</a>
-          <a href="#work" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Services</a>
+          <a onClick={()=>navigate("/dashboard")}  href="#services" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Community</a>
+          <a href="#services" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Services</a>
           <a href="#process" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">Contact</a>
           <a href="#about" className="text-dark hover:text-primary transition-colors duration-300 py-2 border-b border-gray-100">About</a>
           <a href="#contact" onClick={()=>navigate("/profile")} className="btn btn-primary w-full">Profile</a>

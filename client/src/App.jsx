@@ -14,19 +14,38 @@ function App() {
 
   const PrivateRoute = ({ element }) => {
     if (isAuthenticated) {
-      return element; 
+      return element;
     } else {
-    
       return (
-        <div>
-          <h2>You need to be logged in to access this page</h2>
-          <p>Please choose one of the options below:</p>
-          <Link to="/login">Login</Link> <br />
-          <Link to="/signup">Signup</Link>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 text-center">
+          <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4 text-red-600">
+              Access Denied
+            </h2>
+            <p className="mb-6 text-gray-700">
+              You need to be logged in to access this page. Please choose one of
+              the options below:
+            </p>
+            <div className="flex justify-center gap-4">
+              <Link
+                to="/login"
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+              >
+                Signup
+              </Link>
+            </div>
+          </div>
         </div>
       );
     }
   };
+  
   const ProtectedPage = () => {
     return isAuthenticated ? (
       <div>
@@ -51,7 +70,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
         <Route path='/profile' element={<PrivateRoute element={<Profile />} />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<PrivateRoute element={<Dashboard/>}/>} />
       </Routes>
     </div>
       </CommunityProvider>

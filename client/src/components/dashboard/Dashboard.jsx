@@ -66,10 +66,10 @@ const Dashboard = () => {
     }
     getCommunity()
   }, [])
-  
+
   const HandleCode = async (communityId) => {
     try {
-      const result = await axios.post(`https://crackheads-three.vercel.app/community/code`, {communityId},{
+      const result = await axios.post(`https://crackheads-three.vercel.app/community/code`, { communityId }, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
@@ -103,12 +103,12 @@ const Dashboard = () => {
         {/* Projects section */}
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className='flex justify-between items-start  mb-4 w-[full]'>
-          <h2 className="text-xl font-semibold mb-4">Active Community</h2>
-          {selectedCommunity?.role==='admin'&&<button
-            onClick={() => HandleCode(selectedCommunity.communityId)}
-            disabled={!selectedCommunity}
-            className="text-sm bg- font-semibold  text-blue-600 hover:underline"
-          >Generate Code</button>}
+            <h2 className="text-xl font-semibold mb-4">Active Community</h2>
+            {selectedCommunity?.role === 'admin' && <button
+              onClick={() => HandleCode(selectedCommunity.communityId)}
+              disabled={!selectedCommunity}
+              className="text-sm bg- font-semibold  text-blue-600 hover:underline"
+            >Generate Code</button>}
           </div>
           <div className="space-y-4">
             {communities.map((community) => {
@@ -137,22 +137,19 @@ const Dashboard = () => {
       </div>
       <div className="bg-white rounded-xl shadow-sm p-6">
         <h2 className="text-xl font-semibold mb-4">Emergency Alerts</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {alerts.map((alert) => (
-              <AlertButton
-                key={alert.title}
-                title={alert.title}
-                icon={alert.icon}
-                color={alert.color}
-                onClick={() => sendAlert(alert.title)}
-              />
-            ))}
-          </div>
-
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {alerts.map((alert) => (
+            <AlertButton
+              key={alert.title}
+              title={alert.title}
+              icon={alert.icon}
+              color={alert.color}
+              onClick={() => sendAlert(alert.title)}
+            />
+          ))}
         </div>
       </div>
+
     </div>
   );
 };
