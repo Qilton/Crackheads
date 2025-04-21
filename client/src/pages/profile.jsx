@@ -23,7 +23,7 @@ function Profile() {
         const userId = localStorage.getItem("id");
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`https://crackheads-three.vercel.app/user/${userId}`, {
+        const response = await axios.get(`http://localhost:8080/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -90,17 +90,20 @@ function Profile() {
     }
   };
   
-  const HandleLogout=async()=>{
-    try{
-      localStorage.removeItem("token")
-      localStorage.removeItem("id")
-      localStorage.removeItem("loggedInUser")
-      navigate("/login")
-    }
-    catch(err){
+  const HandleLogout = async () => {
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (!confirmLogout) return;
+  
+    try {
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("loggedInUser");
+      navigate("/login");
+    } catch (error) {
       console.error("Error logging out:", error);
     }
-  }
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -118,7 +121,7 @@ function Profile() {
       }
       if (photoFile) data.append("photo", photoFile); // only if a new one is selected
 
-      await axios.post(`https://crackheads-three.vercel.app/user/update/${userId}`, data, {
+      await axios.post(`http://localhost:8080/user/update/${userId}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

@@ -1,5 +1,6 @@
 const admin = require("../utils/firebase-admin");
 const mongoose= require("mongoose");
+const Alert = require("../models/Alert");    
 const User = require("../models/user");
 const fcmToken= async (req, res) => {
     const { token } = req.body;
@@ -22,7 +23,7 @@ const fcmToken= async (req, res) => {
   };
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-  const sendRepeatedNotification = async (tokens, message) => {
+  const sendRepeatedNotification = async (tokens, message,  alertUrl) => {
     const payload = {
       notification: {
         title: "Help Alert!",
@@ -31,8 +32,7 @@ const fcmToken= async (req, res) => {
       data: {
         title: "Help Alert!",
         body: message,
-        click_action: "https://your-site.com/alert",
-        audio: "some-audio-url"
+        click_action: alertUrl,   
       }
     };
   
@@ -93,22 +93,34 @@ const fcmToken= async (req, res) => {
   
   
 
-  const alert = async (req, res) => {
-    const { communityId, message } = req.body;
+  
+const alert = async (req, res) => {
+  const { communityId, message, locationUrl, name } = req.body;
+
   const objectId = new mongoose.Types.ObjectId(communityId);
 
-    const users = await User.find({ 'communities.communityId': objectId });
+  const users = await User.find({ 'communities.communityId': objectId });
+  const tokens = users.flatMap(user => user.fcmToken);
 
-    const tokens = users.flatMap(user => user.fcmToken);
-  
-    if (tokens.length === 0) {
-      return res.status(400).json({ message: "No users in the community have FCM tokens" });
-    }
-  
-    await sendRepeatedNotification(tokens, message);
-  
-    res.status(200).json({ message: "Repeated notifications sent successfully" });
-  };
+  if (tokens.length === 0) {
+    return res.status(400).json({ message: "No users in the community have FCM tokens" });
+  }
+
+  // ✅ Save alert in DB
+  const alertDoc = await Alert.create({
+    communityId,
+    message,
+    name,
+    locationUrl,
+  });
+
+  const alertId = alertDoc._id.toString();
+  const alertUrl = `https://your-frontend.com/notification/${alertId}`;
+
+  await sendRepeatedNotification(tokens, message, alertUrl);
+
+  res.status(201).json({ alertId }); // return the alert ID to frontend
+};
   module.exports = {
     fcmToken,
     alert,

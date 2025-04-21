@@ -19,7 +19,7 @@ const NotificationAlert = () => {
         });
 
 
-        await fetch("https://crackheads-three.vercel.app/notification/token", {
+        await fetch("http://localhost:8080/notification/token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

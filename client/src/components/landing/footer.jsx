@@ -26,7 +26,7 @@ const Footer = () => {
               <a target='_blank' href="#" className="text-left text-[#4aff01] hover:text-[#4aff01] transition-colors duration-300">
                 <FiFacebook size={20} />
               </a>
-              <a target='_blank' href="#" className="text-left text-[#4aff01] hover:text-[#4aff01] transition-colors duration-300">
+              <a target='_blank' href="https://www.instagram.com/safecircle_101/" className="text-left text-[#4aff01] hover:text-[#4aff01] transition-colors duration-300">
                 <FiInstagram size={20} />
               </a>
             </div>

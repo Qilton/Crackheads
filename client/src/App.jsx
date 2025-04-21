@@ -9,6 +9,7 @@ import RefreshHandler from './RefreshHandler';
 import Dashboard from './pages/dashboard';
 import { CommunityProvider } from './provider/CommunityProvider';  
 import { ToastContainer } from 'react-toastify';
+import AlertPage from './pages/AlertPage';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -71,6 +72,7 @@ function App() {
         <Route path='/home' element={<PrivateRoute element={<Home />} />} />
         <Route path='/profile' element={<PrivateRoute element={<Profile />} />} />
         <Route path='/dashboard' element={<PrivateRoute element={<Dashboard/>}/>} />
+        <Route path="/alert" element={<AlertPage />} />
       </Routes>
     </div>
       </CommunityProvider>

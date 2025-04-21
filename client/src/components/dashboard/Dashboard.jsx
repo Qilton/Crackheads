@@ -24,31 +24,46 @@ const Dashboard = () => {
   const { selectedCommunity, setSelectedCommunity } = useCommunity();
   const [communities, setCommunities] = useState([]);
 
-  const sendAlert = async (alertTitle) => {
+  const sendAlert = (alertTitle) => {
     if (!selectedCommunity) {
       return alert("Please select a community.");
     }
-
-    try {
-      await axios.post("https://crackheads-three.vercel.app/notification/alert", {
-        communityId: selectedCommunity.communityId,
-        message: alertTitle,
-      }, {
-        headers: {
-          Authorization: `${localStorage.getItem("token")}`,
-        },
-      });
-
-      alert("Emergency notification sent!");
-    } catch (error) {
-      console.error("Error sending alert:", error);
-      alert("Failed to send alert.");
-    }
+  
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      const locationUrl = `https://maps.google.com/?q=${latitude},${longitude}`;
+      const name = localStorage.getItem("loggedInUser");
+  
+      try {
+        const res = await axios.post("http://localhost:8080/notification/alert", {
+          communityId: selectedCommunity.communityId,
+          message: alertTitle,
+          locationUrl,
+          name,
+        }, {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        });
+  
+        alert("Emergency notification sent!");
+        console.log("Server response:", res.data);
+  
+      } catch (error) {
+        console.error("Error sending alert:", error);
+        alert("Failed to send alert.");
+      }
+    }, (err) => {
+      console.error("Location error:", err);
+      alert("Please enable location access.");
+    });
   };
+  
+  
   useEffect(() => {
     const getCommunity = async () => {
       try {
-        const result = await axios.get("https://crackheads-three.vercel.app/community/get", {
+        const result = await axios.get("http://localhost:8080/community/get", {
           headers: {
             Authorization: `${localStorage.getItem("token")}`,
           },
@@ -69,7 +84,7 @@ const Dashboard = () => {
 
   const HandleCode = async (communityId) => {
     try {
-      const result = await axios.post(`https://crackheads-three.vercel.app/community/code`, { communityId }, {
+      const result = await axios.post(`http://localhost:8080/community/code`, { communityId }, {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
