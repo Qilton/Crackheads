@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
+  const GOOGLE_MAPS_API_KEY = "AIzaSyDwDptbSsNwAu-w91OKbO9YQswSsKVJk6g"
   const [markerPosition, setMarkerPosition] = useState(null);
   const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState(null);
